@@ -24,22 +24,20 @@ $(function() {
         });
 
 
-        /* Loop through each feed and check for each url whether it 
-         * a) is defined, and b) is not empty
+        /* Loop through each feed and check for each url whether it is
+         * defined and not empty, both of which are achieved which toBeTruthy()
          */
         it('has URL', function() {
             for(var i = 0; i < allFeeds.length; i++) {
-                expect(allFeeds[i].url).toBeDefined();
                 expect(allFeeds[i].url).toBeTruthy(); 
             }
         });
 
-        /* Loop through each feed and check for each name whether it 
-         * a) is defined, and b) is not empty
+        /* Loop through each feed and check for each name whether it is
+         * defined and not empty, both of which are achieved which toBeTruthy()
          */
         it('has name', function() {
             for(var i = 0; i < allFeeds.length; i++) {
-                expect(allFeeds[i].name).toBeDefined();
                 expect(allFeeds[i].name).toBeTruthy(); 
             }
         });
@@ -119,11 +117,11 @@ $(function() {
         it('loads at least one entry', function(done) {
             loadFeed(1, function () {
                 feedTwoHeader = $('.feed').find('h2').text();
+
+                // After loadFeed is done, we can compare the two variables to see if they have changed.
+                expect(feedOneHeader).not.toEqual(feedTwoHeader);
                 done();
             });
-
-            // After loadFeed is done, we can compare the two variables to see if they have changed.
-            expect(feedOneHeader).not.toEqual(feedTwoHeader);
         }); 
 
     });
@@ -138,7 +136,7 @@ $(function() {
             expect(validateName("Singleword")).toBeTruthy();
             expect(validateName("A regular nice sounding name")).toBeTruthy();
             expect(validateName("A combination of letters and others symbols! :)")).toBeTruthy();
-        })
+        });
 
         it("returns false for invalid names", function() {
             // empty name should not be allowed
@@ -149,7 +147,7 @@ $(function() {
             expect(validateName("*&ˆ&$#")).toBeFalsy();
             // name that already exists should also not be allowed
             expect(validateName("CSS Tricks")).toBeFalsy();
-        })
+        });
 
         it("returns true for valid urls", function() {
             // a valid url feed should be allowed
@@ -158,7 +156,7 @@ $(function() {
             expect(validateUrl("http://feeds.feedburner.com/udacity-linear-digressions")).toBeTruthy();
             // an url with a non-.com domain should be allowed
             expect(validateUrl("http://feeds.feedburner.de/bla_bla123")).toBeTruthy();
-        })
+        });
 
         it("returns false for invalid urls", function() {
             // an empty url should not be allowed
@@ -168,7 +166,7 @@ $(function() {
             // incomplete urls should not be allowed
             expect(validateUrl("http://incompleteurl")).toBeFalsy();
             expect(validateUrl("incomplete.com/url")).toBeFalsy();
-        })
+        });
     });
 
     /*
@@ -182,7 +180,7 @@ $(function() {
         var testFeed = {
             name: 'test name',
             url: 'http://www.test-url.com'
-        }
+        };
 
         // After running addFeed, using testFeed, the length of allFeeds must have changed
         // i.e. initialLength must be different from newLength
